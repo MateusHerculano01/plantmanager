@@ -1,6 +1,13 @@
 import React from 'react';
 import { Feather } from '@expo/vector-icons';
-import { SafeAreaView, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import {
+  SafeAreaView,
+  Text,
+  Image,
+  StyleSheet,
+  Dimensions,
+  TouchableOpacity
+} from 'react-native';
 
 import wateringImg from '../assets/watering.png';
 import colors from '../styles/colors';
@@ -12,7 +19,11 @@ export function Welcome() {
         Gerencie {'\n'} suas plantas {'\n'} de forma fácil
       </Text>
 
-      <Image source={wateringImg} style={styles.image} />
+      <Image
+        source={wateringImg}
+        style={styles.image}
+        resizeMode="contain"
+      />
 
       <Text style={styles.subtitle}>
         Não esqueça mais de regas suas plantas.
@@ -37,7 +48,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'space-between'
+    justifyContent: 'space-around'
   },
   title: {
     fontSize: 32,
@@ -53,8 +64,7 @@ const styles = StyleSheet.create({
     color: colors.heading
   },
   image: {
-    width: 292,
-    heigth: 284
+    height: Dimensions.get('window').width * 0.7
   },
   button: {
     backgroundColor: colors.green,
