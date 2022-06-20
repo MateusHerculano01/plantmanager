@@ -13,7 +13,7 @@ interface EnviromentButtonProps extends RectButtonProps {
   active?: boolean;
 }
 
-export function EnvironmentButton({ title, active = false, ...rest }: EnviromentButtonProps) {
+export function EnviromentButton({ title, active = false, ...rest }: EnviromentButtonProps) {
   return (
     <RectButton
       style={[
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 12,
-    marginRight: 5
+    marginHorizontal: 5
   },
   containerActive: {
     backgroundColor: colors.green_light
