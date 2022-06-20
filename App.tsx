@@ -1,4 +1,5 @@
 import React from 'react';
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import AppLoading from 'expo-app-loading';
 
 import { AppRoutes } from './src/routes';
@@ -18,7 +19,9 @@ export default function App() {
     return <AppLoading />
 
   return (
-    <AppRoutes />
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <AppRoutes />
+    </GestureHandlerRootView>
   );
 }
 

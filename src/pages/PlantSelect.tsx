@@ -44,17 +44,16 @@ export function PlantSelect() {
 
   const [page, setPage] = useState(1);
   const [loadingMore, setLoadingMore] = useState(false);
-  const [loadedAll, setLoadedAll] = useState(false);
 
-  function handleEnvironmentSelected(environment: string) {
+  function handleEnviromentSelected(environment: string) {
     setEnviromentSelected(environment);
 
     if (environment == 'all')
-      return setFilteredPlants(plants)
+      return setFilteredPlants(plants);
 
-    const filtered = plants.filter(plant => {
+    const filtered = plants.filter(plant =>
       plant.environments.includes(environment)
-    });
+    );
 
     setFilteredPlants(filtered);
   }
@@ -89,7 +88,7 @@ export function PlantSelect() {
 
   useEffect(() => {
     async function fetchEnvironment() {
-      const { data } = await api.get('plants_environment?_sort=title&_order=asc');
+      const { data } = await api.get('plants_environments?_sort=title&_order=asc');
 
       setEnviroments([
         {
@@ -105,7 +104,6 @@ export function PlantSelect() {
   }, []);
 
   useEffect(() => {
-
     fetchPlants();
   }, []);
 
@@ -129,11 +127,12 @@ export function PlantSelect() {
       <View>
         <FlatList
           data={enviroments}
+          keyExtractor={(item) => String(item.key)}
           renderItem={({ item }) => (
             <EnviromentButton
               title={item.title}
               active={item.key === enviromentSelected}
-              onPress={() => handleEnvironmentSelected(item.key)}
+              onPress={() => handleEnviromentSelected(item.key)}
             />
           )}
           horizontal
@@ -145,8 +144,12 @@ export function PlantSelect() {
       <View style={styles.plants}>
         <FlatList
           data={filteredPlants}
+          keyExtractor={(item) => String(item.id)}
           renderItem={({ item }) => (
-            <PlantCardPrimary data={item} />
+            <PlantCardPrimary
+              data={item}
+              onPress={() => console.log('clicou')}
+            />
           )}
           showsVerticalScrollIndicator={false}
           numColumns={2}

@@ -1,8 +1,5 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text
-} from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 import { RectButton, RectButtonProps } from 'react-native-gesture-handler';
 
 import colors from '../styles/colors';
@@ -29,7 +26,7 @@ export function EnviromentButton({ title, active = false, ...rest }: EnviromentB
         {title}
       </Text>
     </RectButton>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -53,4 +50,4 @@ const styles = StyleSheet.create({
     fontFamily: fonts.heading,
     color: colors.green_dark,
   }
-})
+});
