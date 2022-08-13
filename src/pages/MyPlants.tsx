@@ -9,14 +9,15 @@ import {
 import { formatDistance } from 'date-fns';
 import { pt } from 'date-fns/locale';
 
-import { Header } from '../components/Header';
-
 import { loadPlant, PlantProps } from '../libs/storage';
+
+import { Header } from '../components/Header';
+import { PlantCardSecondary } from '../components/PlantCardSecondary';
+import { Load } from '../components/Load';
 
 import waterdrop from '../assets/waterdrop.png';
 import colors from '../styles/colors';
 import fonts from '../styles/fonts';
-import { PlantCardSecondary } from '../components/PlantCardSecondary';
 
 export function MyPlants() {
   const [myPlants, setMyPlants] = useState<PlantProps[]>([]);
@@ -44,6 +45,9 @@ export function MyPlants() {
     loadStorageData();
 
   }, [])
+
+  if (loading)
+    return <Load />
 
   return (
     <View style={styles.container}>
