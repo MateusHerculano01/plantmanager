@@ -1,10 +1,15 @@
 import React from 'react';
-import { StyleSheet, Text, View, Animated } from 'react-native';
-
+import {
+  StyleSheet,
+  Text,
+  View,
+  Animated
+} from 'react-native';
 import { RectButton, RectButtonProps } from 'react-native-gesture-handler';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { SvgFromUri } from 'react-native-svg';
 import { Feather } from '@expo/vector-icons';
+
 
 import colors from '../styles/colors';
 import fonts from '../styles/fonts';
@@ -18,7 +23,7 @@ interface PlantProps extends RectButtonProps {
   handleRemove: () => void;
 }
 
-export function PlantCardSecondary({ data, handleRemove, ...rest }: PlantProps) {
+export const PlantCardSecondary = ({ data, handleRemove, ...rest }: PlantProps) => {
   return (
     <Swipeable
       overshootRight={false}
@@ -29,12 +34,11 @@ export function PlantCardSecondary({ data, handleRemove, ...rest }: PlantProps) 
               style={styles.buttonRemove}
               onPress={handleRemove}
             >
-
               <Feather name="trash" size={32} color={colors.white} />
-
             </RectButton>
           </View>
         </Animated.View>
+
       )}
     >
       <RectButton
@@ -46,28 +50,27 @@ export function PlantCardSecondary({ data, handleRemove, ...rest }: PlantProps) 
           width={50}
           height={50}
         />
-
         <Text style={styles.title}>
           {data.name}
         </Text>
-
         <View style={styles.details}>
           <Text style={styles.timeLabel}>
-            Regas às
+            Regar às
           </Text>
           <Text style={styles.time}>
             {data.hour}
           </Text>
-        </View>
 
+        </View>
       </RectButton>
     </Swipeable>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   container: {
     width: '100%',
+    height: 100,
     paddingHorizontal: 10,
     paddingVertical: 25,
     borderRadius: 20,
@@ -78,9 +81,10 @@ const styles = StyleSheet.create({
   },
   title: {
     flex: 1,
-    color: colors.heading,
+    marginLeft: 10,
     fontFamily: fonts.heading,
-    marginVertical: 17
+    fontSize: 17,
+    color: colors.heading
   },
   details: {
     alignItems: 'flex-end',
@@ -104,7 +108,8 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     justifyContent: 'center',
     alignItems: 'center',
+    position: 'relative',
     right: 20,
-    paddingLeft: 15,
+    paddingLeft: 15
   }
 })

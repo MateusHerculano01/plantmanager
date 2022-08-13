@@ -1,4 +1,5 @@
 import React from 'react';
+import { Platform } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialIcons } from '@expo/vector-icons';
 
@@ -18,7 +19,7 @@ export const AuthRoutes = () => {
         tabBarInactiveTintColor: colors.heading,
         tabBarLabelPosition: 'beside-icon',
         tabBarStyle: {
-          paddingVertical: 20,
+          paddingVertical: Platform.OS === 'ios' ? 20 : 0,
           height: 88,
         },
       }}

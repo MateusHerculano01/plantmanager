@@ -3,16 +3,16 @@ import * as Notifications from 'expo-notifications';
 import { format } from 'date-fns';
 
 export interface PlantProps {
-  id: number;
+  id: string;
   name: string;
   about: string;
   water_tips: string;
   photo: string;
-  environments: string[],
+  environments: [string];
   frequency: {
-    times: number,
-    repeat_every: string
-  },
+    times: number;
+    repeat_every: string;
+  };
   hour: string;
   dateTimeNotification: Date;
 }
@@ -26,21 +26,29 @@ export interface StoragePlantProps {
 
 export async function savePlant(plant: PlantProps): Promise<void> {
   try {
-    const nextTime = new Date(plant.dateTimeNotification);
+    // Pedir permissão iOS.
+    await Notifications.requestPermissionsAsync({
+      ios: {
+        allowAlert: true,
+        allowBadge: true,
+        allowSound: true,
+        allowAnnouncements: true,
+      },
+    });
+
+    const nexTime = new Date(plant.dateTimeNotification);
     const now = new Date();
 
-    const { repeat_every, times } = plant.frequency;
-
+    const { times, repeat_every } = plant.frequency;
     if (repeat_every === 'week') {
       const interval = Math.trunc(7 / times);
-      nextTime.setDate(now.getDate() + interval);
-    } else {
-      nextTime.setDate(nextTime.getDate() + 1);
+      nexTime.setDate(now.getDate() + interval);
     }
+    else
+      nexTime.setDate(nexTime.getDate() + 1)
 
     const seconds = Math.abs(
-      Math.ceil(now.getTime() - nextTime.getTime()) / 1000
-    );
+      Math.ceil(now.getTime() - nexTime.getTime()) / 1000);
 
     const notificationId = await Notifications.scheduleNotificationAsync({
       content: {
@@ -55,11 +63,11 @@ export async function savePlant(plant: PlantProps): Promise<void> {
       trigger: {
         seconds: seconds < 60 ? 60 : seconds,
         repeats: true
-      }
+      },
     });
 
     const data = await AsyncStorage.getItem('@plantmanager:plants');
-    const oldPlants = data ? (JSON.parse(data) as StoragePlantProps) : {};
+    const oldPants = data ? (JSON.parse(data) as StoragePlantProps) : {};
 
     const newPlant = {
       [plant.id]: {
@@ -68,15 +76,16 @@ export async function savePlant(plant: PlantProps): Promise<void> {
       }
     }
 
-    await AsyncStorage.setItem('@plantmanager:plants', JSON.stringify({
-      ...newPlant,
-      ...oldPlants
-    }));
-
+    await AsyncStorage.setItem('@plantmanager:plants',
+      JSON.stringify({
+        ...newPlant,
+        ...oldPants
+      }));
   } catch (error: any) {
     throw new Error(error);
   }
 }
+
 
 export async function loadPlant(): Promise<PlantProps[]> {
   try {
@@ -96,7 +105,7 @@ export async function loadPlant(): Promise<PlantProps[]> {
           new Date(a.dateTimeNotification).getTime() / 1000 -
           Math.floor(new Date(b.dateTimeNotification).getTime() / 1000)
         )
-      )
+      );
 
     return plantsSorted;
 
@@ -110,8 +119,10 @@ export async function removePlant(id: string): Promise<void> {
   const plants = data ? (JSON.parse(data) as StoragePlantProps) : {};
 
   await Notifications.cancelScheduledNotificationAsync(plants[id].notificationId);
-
   delete plants[id];
 
-  await AsyncStorage.setItem('@plantmanager:plants', JSON.stringify(plants));
+  await AsyncStorage.setItem(
+    '@plantmanager:plants',
+    JSON.stringify(plants)
+  );
 }
