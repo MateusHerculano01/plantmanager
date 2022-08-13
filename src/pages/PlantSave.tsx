@@ -22,7 +22,6 @@ import waterdrop from '../assets/waterdrop.png';
 import colors from '../styles/colors';
 import fonts from '../styles/fonts';
 
-
 interface Params {
   plant: PlantProps
 }
@@ -36,14 +35,13 @@ export function PlantSave() {
 
   const { plant } = route.params as Params;
 
-  function handleChangeTime(event: DateTimePickerEvent, dateTime?: Date | undefined) {
+  function handleChangeTime(_: DateTimePickerEvent, dateTime?: Date | undefined) {
     if (Platform.OS === 'android') {
       setShowDatePicker(oldState => !oldState);
     }
 
     if (dateTime && isBefore(dateTime, new Date())) {
       setSelectedDateTime(new Date());
-
       return Alert.alert('Escolha uma hora no futuro! ⏰');
     }
 
@@ -118,7 +116,6 @@ export function PlantSave() {
               mode="time"
               display={Platform.OS === 'android' ? "default" : "spinner"}
               onChange={handleChangeTime}
-              textColor="red"
             />
           )}
 
