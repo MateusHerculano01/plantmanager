@@ -63,6 +63,14 @@ export function PlantSave() {
         dateTimeNotification: selectedDateTime
       });
 
+      navigation.navigate('Confirmation', {
+        title: 'Tudo certo',
+        subtitle: 'Fique tranquilo que sempre vamos lembrar você de cuidar da sua plantinha com muito cuidado.',
+        buttonTitle: 'Muito Obrigado :D',
+        icon: 'hug',
+        nextScreen: 'MyPlants'
+      });
+
     } catch (error) {
       Alert.alert('Não foi possível salvar. 😥')
     }
