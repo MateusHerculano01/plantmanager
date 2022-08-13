@@ -17,55 +17,58 @@ enableScreens();
 const stackRoutes = createSharedElementStackNavigator();
 // const stackRoutes = createStackNavigator();
 
-export function AppRoutes() {
-  <stackRoutes.Navigator
-    headerMode="none"
-    screenOptions={{
-      cardStyle: {
-        backgroundColor: colors.white
-      },
-    }}
-  >
-    <stackRoutes.Screen
-      name="Welcome"
-      component={Welcome}
-    />
-
-    <stackRoutes.Screen
-      name="UserIdentification"
-      component={UserIdentification}
-    />
-
-    <stackRoutes.Screen
-      name="Confirmation"
-      component={Confirmation}
-    />
-
-    <stackRoutes.Screen
-      name="PlantSelect"
-      component={AuthRoutes}
-    />
-
-    <stackRoutes.Screen
-      name="PlantSave"
-      component={PlantSave}
-      sharedElementsConfig={(route) => {
-        const { plant } = route.params
-        return [
-          {
-            id: `item.${plant.id}.image`,
-            animation: 'move',
-            resize: 'clip',
-            align: 'center-top'
-          },
-        ]
+export const StackRoutes = () => {
+  return (
+    <stackRoutes.Navigator
+      headerMode="none"
+      screenOptions={{
+        cardStyle: {
+          backgroundColor: colors.white
+        },
       }}
-    />
+    >
+      <stackRoutes.Screen
+        name="Welcome"
+        component={Welcome}
+      />
 
-    <stackRoutes.Screen
-      name="MyPlants"
-      component={AuthRoutes}
-    />
+      <stackRoutes.Screen
+        name="UserIdentification"
+        component={UserIdentification}
+      />
 
-  </stackRoutes.Navigator>
+      <stackRoutes.Screen
+        name="Confirmation"
+        component={Confirmation}
+      />
+
+      <stackRoutes.Screen
+        name="PlantSelect"
+        component={AuthRoutes}
+      />
+
+      <stackRoutes.Screen
+        name="PlantSave"
+        component={PlantSave}
+        sharedElementsConfig={(route) => {
+          const { plant } = route.params
+          return [
+            {
+              id: `item.${plant.id}.image`,
+              animation: 'move',
+              resize: 'clip',
+              align: 'center-top'
+            },
+          ]
+        }}
+      />
+
+      <stackRoutes.Screen
+        name="MyPlants"
+        component={AuthRoutes}
+      />
+
+    </stackRoutes.Navigator>
+
+  )
 }
