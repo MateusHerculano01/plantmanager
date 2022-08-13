@@ -11,11 +11,12 @@ interface PlantProps extends RectButtonProps {
   data: {
     name: string;
     photo: string;
-    hour: string;
+    hour?: string;
   }
 }
 
 export function PlantCardSecondary({ data, ...rest }: PlantProps) {
+  console.log(data);
   return (
     <RectButton
       style={styles.container}
@@ -57,7 +58,7 @@ const styles = StyleSheet.create({
   },
   title: {
     flex: 1,
-    // color: colors.green_dark,
+    color: colors.heading,
     fontFamily: fonts.heading,
     marginVertical: 17
   },

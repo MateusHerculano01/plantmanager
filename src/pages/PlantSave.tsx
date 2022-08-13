@@ -5,16 +5,15 @@ import {
   Text,
   View,
   Image,
-  ScrollView,
   Platform,
   TouchableOpacity
 } from 'react-native';
 import { SvgFromUri } from 'react-native-svg';
 import { getBottomSpace } from 'react-native-iphone-x-helper';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import DateTimePicker, { DateTimePickerEvent, Event } from '@react-native-community/datetimepicker';
+import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import { format, isBefore } from 'date-fns';
-import { loadPlant, PlantProps, savePlant } from '../libs/storage';
+import { PlantProps, savePlant } from '../libs/storage';
 
 import { Button } from '../components/Button';
 
